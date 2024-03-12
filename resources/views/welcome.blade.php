@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form action="{{ route('create-student') }}" method="post" class="form container ">
+    <form action="{{ route('create-student') }}" method="post" class="form container" enctype="multipart/form-data">
         @csrf
         <h1 class="text-center text-primary">Registration Form</h1>
 
@@ -29,6 +29,10 @@
         <input class="form-control form-control-lg border border-primary" type="email" name="email"
             placeholder="Email">
         <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
+        <br>
+        {{-- profile picture --}}
+        <input class="form-control form-control-lg border border-primary" type="file" name="profile_picture">
+        <x-input-error :messages="$errors->get('profile_picture')" class="mt-2 text-danger" />
         <br>
         {{-- gender --}}
         <select class="form-select form-select-lg border border-primary" name="gender" id="gender">

@@ -19,12 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::middleware(['auth', 'verified'])
+    ->group(function () {
+
+        // get all students list
+        Route::get('/dashboard', [StudentListController::class, 'index'])
+            ->name('dashboard');
+
+        Route::get('/profile/{id}', [StudentListController::class, 'show'])
+            ->name('profile');
+    });
+
 Route::post('/create-student', [StudentListController::class, 'create'])
     ->name('create-student');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
